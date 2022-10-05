@@ -2,25 +2,70 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WriteYourNameHere
+namespace KayBarhoum
 {
     /// <summary>
     /// This class holds all the variables and functionality for moving our character around our game world.
     /// </summary>
+
     public class SimpleCharacterController : MonoBehaviour
     {
+        [Header("References")]
+        [SerializeField] private Rigidbody2D rbody2D;
+        private Rigidbody2D player;
+
+
+
+
         [SerializeField] private float horizontalInputValue; // The value of our horizontal input axis.
         [SerializeField] private SpriteRenderer spriteRenderer; // Our character's sprite.
 
+
         // TODO Movement 1/8: Declare a variable for a reference to our 2D rigidbody, for physics stuff.
+        [Header("Character Stats")]
+        [SerializeField] private float runSpeed = 3f;
+        [SerializeField] private float jumpStrength = 5f;
 
-        // TODO Movement 2/8: Declare a variable for the speed we can run at in Unity-units-per-second.
 
-        // TODO Movement 3/8: Declare a variable for the strength of our jump.
+        [Header("Player Input")]
+        private float xInput = 0f;
+        private bool isJumping = false;
+        public float JumpSpeed = 8f;
 
 
-        private void Update()
+        void start()
         {
+            // TODO Movement 2/8: Declare a variable for the speed we can run at in Unity-units-per-second.
+
+
+            // TODO Movement 3/8: Declare a variable for the strength of our jump.
+
+
+
+            void Update()
+            {
+                xInput = Input.GetAxisRaw("Horizontal");
+                isJumping = Input.GetButtonDown("Jump");
+
+                {
+                    transform.position += new Vector3(Input.GetAxis("Horizontal"), 0) * Time.deltaTime * 3f;
+                    transform.position += new Vector3(xInput * runSpeed, 0, 0) * Time.deltaTime;
+
+                    if (isJumping)
+                    {
+                        rbody2D.velocity = Vector2.up * jumpStrength;
+                    }
+
+                    if (Input.GetButtonDown("Jump"))
+                    {
+                        player.velocity = new Vector2(player.velocity.x, JumpSpeed);
+
+                    }
+                }
+            }
+        }
+    }
+}
             // TODO Movement 4/8: Store our horizontal player input value so we can access it later on.
 
             // TODO Movement 5/8: Transform our character's position on the X axis. (Reference our stored horizontal input value here!)
@@ -37,6 +82,4 @@ namespace WriteYourNameHere
 
             // TODO Movement Bonus 2: Flip our character's sprite so that it faces left/right if we are moving left/right. (Hint: A SpriteRenderer reference, and changing its FlipX = true/false will help!)
 
-        }
-    }
-}
+        
