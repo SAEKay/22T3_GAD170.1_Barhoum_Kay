@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 620308440}
   - component: {fileID: 620308437}
   m_Layer: 0
-  m_Name: Moth
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -358,11 +358,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea67fc26813f5e439d7f50c047bb06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rbody2D: {fileID: 0}
-  horizontalInputValue: 0
+  rBody2D: {fileID: 620308438}
+  walkSpeed: 0
+  jumpSpeed: 0
   spriteRenderer: {fileID: 0}
-  runSpeed: 3
-  jumpStrength: 5
+  animator: {fileID: 0}
 --- !u!70 &620308440
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1356,6 +1356,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7394264480018439365, guid: 63a2da37f3a2f33449155db3a3059391, type: 3}
+      propertyPath: m_AnimatedTiles.Array.data[23].second.m_AnimationSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7394264480018439365, guid: 63a2da37f3a2f33449155db3a3059391, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[24].second.m_AnimationSpeed
       value: 5
       objectReference: {fileID: 0}
@@ -1376,12 +1380,16 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7394264480483853114, guid: 63a2da37f3a2f33449155db3a3059391, type: 3}
+      propertyPath: m_AnimatedTiles.Array.data[2].second.m_AnimationSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7394264480483853114, guid: 63a2da37f3a2f33449155db3a3059391, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[3].second.m_AnimationSpeed
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7394264480483853114, guid: 63a2da37f3a2f33449155db3a3059391, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[4].second.m_AnimationSpeed
-      value: 5
+      value: 5.0000005
       objectReference: {fileID: 0}
     - target: {fileID: 7394264480483853114, guid: 63a2da37f3a2f33449155db3a3059391, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[5].second.m_AnimationSpeed

@@ -45,7 +45,7 @@ namespace KayBarhoum
             void Update()
             {
                 xInput = Input.GetAxisRaw("Horizontal");
-                isJumping = Input.GetButtonDown("Jump");
+                isJumping = Input.GetButtonDown("Jump"); 
 
                 {
                     transform.position += new Vector3(Input.GetAxis("Horizontal"), 0) * Time.deltaTime * 3f;
@@ -66,20 +66,84 @@ namespace KayBarhoum
         }
     }
 }
-            // TODO Movement 4/8: Store our horizontal player input value so we can access it later on.
+// TODO Movement 4/8: Store our horizontal player input value so we can access it later on.
 
-            // TODO Movement 5/8: Transform our character's position on the X axis. (Reference our stored horizontal input value here!)
+// TODO Movement 5/8: Transform our character's position on the X axis. (Reference our stored horizontal input value here!)
 
-            // TODO Movement 6/8: Check if the player presses the "Jump" button (by default, the space bar on the keyboard).
+// TODO Movement 6/8: Check if the player presses the "Jump" button (by default, the space bar on the keyboard).
 
-            // TODO Movement 7/8: If they do, then add vertical velocity to our rigidbody to make our character "jump"!
+// TODO Movement 7/8: If they do, then add vertical velocity to our rigidbody to make our character "jump"!
 
-            // TODO Movement 8/8: Add this script to a game object and make a new prefab from it, and explore the level!
+// TODO Movement 8/8: Add this script to a game object and make a new prefab from it, and explore the level!
 
-            // TODO Movement Final: Add code comments describing what you hope your code is doing throughout this script.
+// TODO Movement Final: Add code comments describing what you hope your code is doing throughout this script.
 
-            // TODO Movement Bonus 1: Ensure that our character can only jump if they are "grounded". (Hint: You can use a boolean as a part of this!)
+// TODO Movement Bonus 1: Ensure that our character can only jump if they are "grounded". (Hint: You can use a boolean as a part of this!)
 
-            // TODO Movement Bonus 2: Flip our character's sprite so that it faces left/right if we are moving left/right. (Hint: A SpriteRenderer reference, and changing its FlipX = true/false will help!)
+// TODO Movement Bonus 2: Flip our character's sprite so that it faces left/right if we are moving left/right. (Hint: A SpriteRenderer reference, and changing its FlipX = true/false will help!)
 
-        
+
+public class SimpleCharacterController : MonoBehaviour
+{
+    [SerializeField] private Rigidbody2D rBody2D;
+
+    [Header("CharacterMovement")]
+    [Range(1, 50)]
+    [SerializeField] private float walkSpeed; // Walk/run speed
+    [Range(1, 50)]
+    [SerializeField] public float jumpSpeed; // Jump speed
+
+    [Header("CharacterSprite")]
+    [SerializeField] private SpriteRenderer spriteRenderer; // choose your sprite
+    public Animator animator; // animation reference
+
+    [Header("CharacterVaribles")]
+    private bool jump; // says yes or no when the player can jump
+
+    private void Awake()
+    {
+        rBody2D = GetComponent<Rigidbody2D>(); // Physics for Character
+    }
+
+    void Update()
+    {
+        // Movement Controller
+
+        transform.position += new Vector3(Input.GetAxis("Horizontal"), 0) * Time.deltaTime * walkSpeed;
+        if (Input.GetButtonDown("Horizontal"))
+        {
+            animator.GetFloat("Speed");
+            Debug.Log("Moving");
+        }
+        // Jump Controller Start every frame
+        fixedupdate();
+    }
+
+    // Jump Controller
+    void fixedupdate()
+    {
+        if (Input.GetButtonDown("Jump") && !jump)
+        {
+
+            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpSpeed), ForceMode2D.Impulse);
+            jump = true; Debug.Log("Jumping");
+            animator.SetBool("IsJumping", true);
+
+
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    { // collides with the Ground tag it can jump. If not it will not jump.
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            jump = false;
+        }
+
+    }
+
+
+
+
+}
+
