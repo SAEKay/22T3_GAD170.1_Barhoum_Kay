@@ -1,14 +1,16 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace WriteYourNameHere
+namespace KayBarhoum
 {
     public class SceneLoader : MonoBehaviour
     {
         [SerializeField] private LevellingSystem levellingSystem;
         private bool Next = false;
+
         void Update()
         {       // Next level will be opened and will tell you this.
             if (levellingSystem.levelNext == true)
